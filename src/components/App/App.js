@@ -11,6 +11,11 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 
 import Home from '../shared/Home'
 
+import Surveys from '../Surveys/Surveys'
+import CreateSurvey from '../Surveys/CreateSurvey'
+import Survey from '../Surveys/Survey'
+// import UpdateSurvey from '../Surveys/UpdateSurvey'
+
 class App extends Component {
   constructor () {
     super()
@@ -44,6 +49,11 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          <Route exact path='/surveys' component={Surveys} />
+          <Route exact path='/surveys/:id' user={user} render={() => (
+            <Survey user={user} />
+          )}
+          />
           <Route exact path="/" component={Home}/>
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
@@ -56,6 +66,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-survey' render={() => (
+            <CreateSurvey user={user} alert={this.alert} />
           )} />
         </main>
       </Fragment>
