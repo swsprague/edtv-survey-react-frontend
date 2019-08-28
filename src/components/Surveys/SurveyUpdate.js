@@ -1,20 +1,27 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 // import ListGroup from 'react-bootstrap/ListGroup'
 // import Spinner from 'react-bootstrap/Spinner'
 import apiUrl from '../../apiConfig'
 import SurveyForm from './SurveyForm'
-// import QuestionForm from '../Questions/QuestionForm'
-// import CreateQuestion from '../Questions/QuestionCreate'
-// import QuestionForm from '../Questions/QuestionForm'
-// import ResponseForm from '../Responses/ResponseForm'
 
-class CreateSurvey extends Component {
+class UpdateSurvey extends Component {
   state = {
     survey: {
-      subject: ''
+      subject: '',
+      questions: []
     }
+  }
+
+  componentDidMount () {
+    axios(`${apiUrl}/surveys/${this.props.match.params.id}`)
+      .then(response => this.setState({ survey: response.data.survey }))
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Somethin Dun Went RONG',
+        variant: 'danger'
+      }))
   }
 
   handleChange = event => {
@@ -36,38 +43,38 @@ class CreateSurvey extends Component {
   }
 
   handleSubmit = event => {
-    console.log('survey says ', this.state.survey)
     event.preventDefault()
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
     }
     const data = { survey: this.state.survey }
 
-    axios.post(`${apiUrl}/surveys`, data, { headers: headers })
+    axios.patch(`${apiUrl}/surveys/${this.state.survey._id}`, data, { headers: headers })
       .then(response => {
         this.props.alert({
           heading: 'Success!!!',
-          message: 'You Successfully Created a Survey!',
+          message: 'You Successfully Updated a Survey!',
           variant: 'success'
         })
-        this.props.history.push(`/surveys/${response.data.survey._id}`)
+        this.props.history.push(`/surveys/${this.state.survey._id}`)
       })
       .catch(console.error)
   }
 
   render () {
+    if (!this.state.survey) {
+      return (
+        <h1>LEAVE ME ALONE iM LOADING BRO</h1>
+      )
+    }
     return (
-      <Fragment>
-        <SurveyForm
-          survey={this.state.survey}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
-      </Fragment>
+      <SurveyForm
+        survey={this.state.survey}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+      />
     )
   }
 }
 
-// <CreateQuestion/>
-
-export default withRouter(CreateSurvey)
+export default withRouter(UpdateSurvey)

@@ -12,8 +12,15 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../shared/Home'
 
 import Surveys from '../Surveys/Surveys'
-import CreateSurvey from '../Surveys/CreateSurvey'
+import SurveyCreate from '../Surveys/SurveyCreate'
 import Survey from '../Surveys/Survey'
+import SurveyUpdate from '../Surveys/SurveyUpdate'
+import Responses from '../Responses/Responses'
+import ResponseCreate from '../Responses/ResponseCreate'
+import Response from '../Responses/Response'
+import Questions from '../Questions/Questions'
+import QuestionCreate from '../Questions/QuestionCreate'
+import Question from '../Questions/Question'
 // import UpdateSurvey from '../Surveys/UpdateSurvey'
 
 class App extends Component {
@@ -50,8 +57,18 @@ class App extends Component {
         ))}
         <main className="container">
           <Route exact path='/surveys' component={Surveys} />
+          <Route exact path='/questions' component={Questions} />
+          <Route exact path='/responses' component={Responses} />
           <Route exact path='/surveys/:id' user={user} render={() => (
             <Survey user={user} />
+          )}
+          />
+          <Route exact path='/questions/:id' user={user} render={() => (
+            <Question user={user} />
+          )}
+          />
+          <Route exact path='/responses/:id' user={user} render={() => (
+            <Response user={user} />
           )}
           />
           <Route exact path="/" component={Home}/>
@@ -68,7 +85,16 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/create-survey' render={() => (
-            <CreateSurvey user={user} alert={this.alert} />
+            <SurveyCreate user={user} alert={this.alert} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-question/:id' render={() => (
+            <QuestionCreate user={user} alert={this.alert} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-response' render={() => (
+            <ResponseCreate user={user} alert={this.alert} />
+          )} />
+          <AuthenticatedRoute user={user} path='/update-survey/:id/edit' render={() => (
+            <SurveyUpdate user={user} alert={this.alert} />
           )} />
         </main>
       </Fragment>

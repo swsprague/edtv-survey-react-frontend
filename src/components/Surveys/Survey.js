@@ -35,24 +35,31 @@ class Survey extends Component {
 
   render () {
     const { survey } = this.state
-    const responseJsx = survey.questions[0].responses.map(response => (
-      <li key={response.id}>
-        {response.answer}
-      </li>
-    ))
+    let questionsJsx
+    if (survey) {
+      questionsJsx = survey.questions.map(question => (
+        <li key={question._id}>
+          {question.subject}
+        </li>
+      ))
+    }
     return (
       <div>
         { survey && (
           <Fragment>
             <h1>Survey Title: {survey.subject}</h1>
-            <h2>Question 1: {survey.question[0].subject || 'No Questions in Current Survey'}</h2>
-            <p>Choices: {responseJsx}</p>
-            {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#surveys/${survey._id}/update-survey`}>Edit Survey</Button> : ''}
+            <p>Questions: { questionsJsx || 'No Questions for Current Survey'}</p>
+            {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#update-survey/${survey._id}/edit`}>Edit Survey</Button> : ''}
+            {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#create-question/${survey._id}`}>Add Question</Button> : ''}
           </Fragment>
         )}
       </div>
     )
   }
 }
+
+// <h2>Question 1: {survey.questions || 'No Questions in Current Survey'}</h2>
+// <p>Choices: {responseJsx}</p>
+// {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#surveys/${survey._id}/update-survey`}>Edit Survey</Button> : ''}
 
 export default withRouter(Survey)

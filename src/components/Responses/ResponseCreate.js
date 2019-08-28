@@ -1,25 +1,24 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 // import ListGroup from 'react-bootstrap/ListGroup'
 // import Spinner from 'react-bootstrap/Spinner'
 import apiUrl from '../../apiConfig'
-import SurveyForm from './SurveyForm'
+// import SurveyForm from './SurveyForm'
 // import QuestionForm from '../Questions/QuestionForm'
-// import CreateQuestion from '../Questions/QuestionCreate'
-// import QuestionForm from '../Questions/QuestionForm'
-// import ResponseForm from '../Responses/ResponseForm'
+import ResponseForm from '../Responses/ResponseForm'
 
-class CreateSurvey extends Component {
+class CreateResponse extends Component {
   state = {
-    survey: {
-      subject: ''
+    response: {
+      answer: '',
+      question: ''
     }
   }
 
   handleChange = event => {
     this.setState({
-      survey: { ...this.state.survey, [event.target.name]: event.target.value }
+      response: { ...this.state.response, [event.target.name]: event.target.value }
     })
     // you could also do it this way:
 
@@ -36,38 +35,34 @@ class CreateSurvey extends Component {
   }
 
   handleSubmit = event => {
-    console.log('survey says ', this.state.survey)
+    console.log('response says ', this.state.response)
     event.preventDefault()
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
     }
-    const data = { survey: this.state.survey }
+    const data = { response: this.state.response }
 
-    axios.post(`${apiUrl}/surveys`, data, { headers: headers })
+    axios.post(`${apiUrl}/responses`, data, { headers: headers })
       .then(response => {
         this.props.alert({
           heading: 'Success!!!',
-          message: 'You Successfully Created a Survey!',
+          message: 'You Successfully Created a Response!',
           variant: 'success'
         })
-        this.props.history.push(`/surveys/${response.data.survey._id}`)
+        this.props.history.push(`/responses/${response.data.response._id}`)
       })
       .catch(console.error)
   }
 
   render () {
     return (
-      <Fragment>
-        <SurveyForm
-          survey={this.state.survey}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
-      </Fragment>
+      <ResponseForm
+        response={this.state.response}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+      />
     )
   }
 }
 
-// <CreateQuestion/>
-
-export default withRouter(CreateSurvey)
+export default withRouter(CreateResponse)
