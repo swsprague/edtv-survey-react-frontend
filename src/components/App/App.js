@@ -62,15 +62,15 @@ class App extends Component {
           <Route exact path='/responses' component={Responses} />
           <Route exact path='/' component={Home} />
           <Route exact path='/surveys/:id' user={user} render={() => (
-            <Survey user={user} />
+            <Survey user={user} alert={this.alert} />
           )}
           />
           <Route exact path='/questions/:id' user={user} render={() => (
-            <Question user={user} />
+            <Question user={user} alert={this.alert} />
           )}
           />
           <Route exact path='/responses/:id' user={user} render={() => (
-            <Response user={user} />
+            <Response user={user} alert={this.alert} />
           )}
           />
           <Route path='/sign-up' render={() => (

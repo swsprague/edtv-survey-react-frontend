@@ -1,57 +1,79 @@
 import React from 'react'
-import { Form, Row, Col } from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 // import Question from '../Questions/Question'
 
-const ResponseForm = ({ handleChange, handleSubmit, response, question }) => (
-  <Form onSubmit={handleSubmit}>
-    <Form.Group controlId="answer">
-      <Form.Label>Response</Form.Label>
-      <Form.Control
-        required
-        type="text"
-        placeholder="Enter a Response"
-        value={response.answer}
-        onChange={handleChange}
-        name="answer"
-      />
-    </Form.Group>
-    <fieldset>
-      <Form.Group controlId="question" as={Row}>
-        <Form.Label as="legend" column sm={2}>
-        Associated Question
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Check
-            type="radio"
-            label={question.subject}
-            name={question.subject}
-            id={question._id}
-          />
-          <Form.Check
-            type="radio"
-            label="second radio"
-            name="formHorizontalRadios"
-            id="formHorizontalRadios2"
-          />
-          <Form.Check
-            type="radio"
-            label="third radio"
-            name="formHorizontalRadios"
-            id="formHorizontalRadios3"
-          />
-        </Col>
-      </Form.Group>
-    </fieldset>
-    <Button
-      variant="primary"
-      type="submit"
-    >
-      Submit
-    </Button>
-  </Form>
-)
+const ResponseForm = ({ handleSubmit, userResponse, question }) => {
+  console.log('this question is ', question)
+  return (
+    <Form onSubmit={handleSubmit}>
+      <fieldset>
+        <Form.Group controlId="answers" as={Row}>
+          <Form.Label as="legend" column sm={2}>
+            CHOOSE WISELY!!!!
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Check
+              onSubmit={handleSubmit}
+              type="radio"
+              label={question.answers[0]}
+              name="answer"
+              value={question.answers[0]}
+              id="formHorizontalRadios1"
+              // onChange={handleChange}
+            />
+            <Form.Check
+              onSubmit={handleSubmit}
+              type="radio"
+              label={question.answers[1]}
+              name="answer"
+              value={question.answers[1]}
+              id="formHorizontalRadios2"
+              // checked={userResponse === question.answers[1]}
+              // onChange={handleChange}
+            />
+            <Form.Check
+              onSubmit={handleSubmit}
+              type="radio"
+              label={question.answers[2]}
+              name="answer"
+              value={question.answers[2]}
+              // checked={userResponse === question.answers[2]}
+              id="formHorizontalRadios3"
+              // onChange={handleChange}
+            />
+            <Form.Check
+              onSubmit={handleSubmit}
+              type="radio"
+              label={question.answers[3]}
+              value={question.answers[3]}
+              name="answer"
+              // checked={userResponse === question.answers[3]}
+              id="formHorizontalRadios4"
+              // onChange={handleChange}
+            />
+          </Col>
+        </Form.Group>
+      </fieldset>
+      <Button
+        variant="primary"
+        type="submit"
+      >
+        Submit
+      </Button>
+    </Form>
+  )
+}
+// <Form.Check
+//   type="radio"
+//   label={question.answers[0]}
+//   name={question.subject}
+//   id={question._id}
+// />
+
 // <Form.Label>Response 1</Form.Label>
 // <Form.Control
 //   required

@@ -10,16 +10,33 @@ import ResponseForm from '../Responses/ResponseForm'
 
 class CreateResponse extends Component {
   state = {
-    response: {
+    userResponse: {
       answer: '',
-      survey: this.props.match.params.id,
-      question: this.props.match.params.id.question[0]
+      question: null
     }
+  }
+
+  componentDidMount () {
+    axios(`${apiUrl}/questions/${this.props.match.params.id}`)
+      .then((response) => {
+        const userRep = this.state.userResponse
+        userRep.question = response.data.question
+        this.setState({ userResponse: {
+          question: userRep.question
+        } })
+        console.log('question at response is ', this.state.userResponse.question)
+        console.log('response data at createResource is ', response.data.question)
+      })
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Somethin Dun Went RONG',
+        variant: 'danger'
+      }))
   }
 
   handleChange = event => {
     this.setState({
-      response: { ...this.state.response, [event.target.name]: event.target.value }
+      userResponse: { ...this.state.response, [event.target.name]: event.target.value }
     })
     // you could also do it this way:
 
@@ -36,7 +53,7 @@ class CreateResponse extends Component {
   }
 
   handleSubmit = event => {
-    console.log('response says ', this.state.response)
+    console.log('userResponse says ', this.state.userResponse)
     event.preventDefault()
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
@@ -58,7 +75,8 @@ class CreateResponse extends Component {
   render () {
     return (
       <ResponseForm
-        response={this.state.response}
+        response={this.state.userResponse}
+        question={this.state.userResponse.question}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
       />
