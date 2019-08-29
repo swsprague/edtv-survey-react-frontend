@@ -24,12 +24,12 @@ class Response extends Component {
     console.log('user is ', this.props.user)
     try {
       const response = await axios(`${apiUrl}/responses/${this.props.match.params.id}`)
-
+      console.log('response api get is ', response)
       this.setState({
         response: response.data.response
       })
+      console.log('response at blurg is ', this.state.response)
     } catch (error) {
-      console.error(error)
     }
   }
 
@@ -39,14 +39,16 @@ class Response extends Component {
       <div>
         { response && (
           <Fragment>
-            <h1>Response: {response.answer}</h1>
-            <h2>Associated Question: {response.question.subject}</h2>
-            {(this.props.user && response) && this.props.user._id === response.owner ? <Button href={`#responses/${response._id}/update-response`}>Edit Response</Button> : ''}
+            <h1>You Chose: {response.answer}</h1>
+            <p>Thank you for your answer plz sign my yearbook</p>
+            <Button href={'#/surveys'}>Back 2 Surveys List</Button>
           </Fragment>
         )}
       </div>
     )
   }
 }
+
+// <h2>Associated Question: {response.question.subject}</h2>
 
 export default withRouter(Response)

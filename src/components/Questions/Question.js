@@ -69,7 +69,7 @@ class Question extends Component {
     event.preventDefault()
     const form = new FormData(event.target)
     console.log('question xxx is ', this.state.question)
-    form.append('question_id', this.state.question.id)
+    // form.append('question_id', this.state.question._id)
     let output = ''
     for (const pair of form.entries()) {
       output = pair[1]
@@ -95,7 +95,7 @@ class Question extends Component {
           message: 'You Successfully Answered a Question!',
           variant: 'success'
         })
-        this.props.history.push(`/questions/${this.state.question._id}`)
+        this.props.history.push(`/responses/${response.data.response._id}`)
       })
       .catch(console.error)
   }

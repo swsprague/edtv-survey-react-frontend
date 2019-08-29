@@ -4,7 +4,7 @@ import Layout from './Layout'
 
 const Home = () => (
   <Layout>
-    <h4>EDTV Homepage</h4>
+    <h1>WELCOME TO MY NIGHTMARE!</h1>
   </Layout>
 )
 
