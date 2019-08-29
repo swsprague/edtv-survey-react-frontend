@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 // import ListGroup from 'react-bootstrap/ListGroup'
 // import Spinner from 'react-bootstrap/Spinner'
@@ -17,7 +17,8 @@ import apiUrl from '../../apiConfig'
 
 class Question extends Component {
   state = {
-    question: null
+    question: null,
+    deleted: false
   }
 
   async componentDidMount () {
@@ -34,6 +35,15 @@ class Question extends Component {
     }
   }
 
+  delete = async () => {
+    try {
+      await axios.delete(`${apiUrl}/questions/${this.props.match.params.id}`)
+      this.setState({ deleted: true })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   // const responseJsx = question.responses.map(response => (
   //   <li key={response.id}>
   //     {response.answer}
@@ -41,9 +51,20 @@ class Question extends Component {
   // ))
 
   render () {
-    const { question } = this.state
+    const { question, deleted } = this.state
     let answersJsx
-    if (question) {
+    const currentSurvey = `/surveys/${this.props.match.params.survey_id}`
+
+    if (deleted) {
+      return <Redirect to={
+        {
+          pathname: currentSurvey,
+          state: {
+            msg: 'Question Successfully Deleted'
+          }
+        }
+      }/>
+    } else if (question) {
       answersJsx = question.answers.map(answer => (
         <li key={answer}>
           {answer}
@@ -54,9 +75,11 @@ class Question extends Component {
       <div>
         { question && (
           <Fragment>
-            <h1>Question Subject: {question.subject}</h1>
+            <h1>Question: {question.subject}</h1>
             <p>Answers: { answersJsx || 'No Responses for Current Question'}</p>
-            {(this.props.user && question) && this.props.user._id === question.owner ? <Button href={`#questions/${question._id}/update-question`}>Edit Question</Button> : ''}
+            <Link to={currentSurvey}>Back to Survey</Link>
+            {(this.props.user && question) && this.props.user._id === question.owner ? <Button href={`#update-question/${question._id}/edit`}>Edit Question</Button> : ''}
+            {(this.props.user && question) && this.props.user._id === question.owner ? <Button onClick={this.delete}>Delete This Question</Button> : ''}
           </Fragment>
         )}
       </div>

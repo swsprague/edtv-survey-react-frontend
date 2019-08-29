@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import ListGroup from 'react-bootstrap/ListGroup'
 // import ListGroup from 'react-bootstrap/ListGroup'
 // import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
@@ -17,7 +18,8 @@ import apiUrl from '../../apiConfig'
 
 class Survey extends Component {
   state = {
-    survey: null
+    survey: null,
+    deleted: false
   }
 
   async componentDidMount () {
@@ -33,14 +35,33 @@ class Survey extends Component {
     }
   }
 
+  delete = async () => {
+    try {
+      await axios.delete(`${apiUrl}/surveys/${this.props.match.params.id}`)
+      this.setState({ deleted: true })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   render () {
-    const { survey } = this.state
+    const { survey, deleted } = this.state
     let questionsJsx
-    if (survey) {
+
+    if (deleted) {
+      return <Redirect to={
+        {
+          pathname: '/surveys',
+          state: {
+            msg: 'Survey Has Been Deleted'
+          }
+        }
+      }/>
+    } else if (survey) {
       questionsJsx = survey.questions.map(question => (
-        <li key={question._id}>
-          {question.subject}
-        </li>
+        <ListGroup.Item key={question._id}>
+          <Link to={ `/questions/${question._id}` }>{question.subject} </Link>
+        </ListGroup.Item>
       ))
     }
     return (
@@ -48,9 +69,11 @@ class Survey extends Component {
         { survey && (
           <Fragment>
             <h1>Survey Title: {survey.subject}</h1>
-            <p>Questions: { questionsJsx || 'No Questions for Current Survey'}</p>
+            Questions: { questionsJsx || 'No Questions for Current Survey'}
+            <Link to='/surveys'>Back to Surveys List</Link>
             {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#update-survey/${survey._id}/edit`}>Edit Survey</Button> : ''}
             {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#create-question/${survey._id}`}>Add Question</Button> : ''}
+            {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button onClick={this.delete}>Delete This Survey</Button> : ''}
           </Fragment>
         )}
       </div>

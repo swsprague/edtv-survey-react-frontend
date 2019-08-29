@@ -96,6 +96,9 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/update-survey/:id/edit' render={() => (
             <SurveyUpdate user={user} alert={this.alert} />
           )} />
+          <AuthenticatedRoute user={user} path='/update-question/:id/edit' render={() => (
+            <SurveyUpdate user={user} alert={this.alert} />
+          )} />
         </main>
       </Fragment>
     )

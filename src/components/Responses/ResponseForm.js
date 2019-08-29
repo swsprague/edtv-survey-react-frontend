@@ -2,6 +2,8 @@ import React from 'react'
 import { Form, Row, Col } from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+// import Question from '../Questions/Question'
+
 const ResponseForm = ({ handleChange, handleSubmit, response, question }) => (
   <Form onSubmit={handleSubmit}>
     <Form.Group controlId="answer">
