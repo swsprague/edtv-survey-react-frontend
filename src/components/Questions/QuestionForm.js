@@ -16,49 +16,49 @@ const QuestionForm = ({ handleChange, handleSubmit, question }) => (
       />
     </Form.Group>
 
-    <Form.Group controlId="answers">
+    <Form.Group controlId="answer1">
       <Form.Label>Answer 1</Form.Label>
       <Form.Control
         required
         type="text"
         placeholder="Enter an Answer"
-        value={question.answers.answer1}
+        value={question.answer1}
         onChange={handleChange}
         name="answer1"
       />
     </Form.Group>
 
-    <Form.Group controlId="answers">
+    <Form.Group controlId="answer2">
       <Form.Label>Answer 2</Form.Label>
       <Form.Control
         required
         type="text"
         placeholder="Enter an Answer"
-        value={question.answers.answer2}
+        value={question.answer2}
         onChange={handleChange}
         name="answer2"
       />
     </Form.Group>
 
-    <Form.Group controlId="answers">
+    <Form.Group controlId="answer3">
       <Form.Label>Answer 3</Form.Label>
       <Form.Control
         required
         type="text"
         placeholder="Enter an Answer"
-        value={question.answers.answer3}
+        value={question.answer3}
         onChange={handleChange}
         name="answer3"
       />
     </Form.Group>
 
-    <Form.Group controlId="answers">
+    <Form.Group controlId="answer4">
       <Form.Label>Answer 4</Form.Label>
       <Form.Control
         required
         type="text"
         placeholder="Enter an Answer"
-        value={question.answers.answer4}
+        value={question.answer4}
         onChange={handleChange}
         name="answer4"
       />

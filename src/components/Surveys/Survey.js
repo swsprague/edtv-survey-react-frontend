@@ -36,8 +36,12 @@ class Survey extends Component {
   }
 
   delete = async () => {
+    const headers = {
+      'Authorization': `Token token=${this.props.user.token}`
+    }
+    console.log('match params at delete is ', this.props.match.params.id)
     try {
-      await axios.delete(`${apiUrl}/surveys/${this.props.match.params.id}`)
+      await axios.delete(`${apiUrl}/surveys/${this.props.match.params.id}`, { headers })
       this.setState({ deleted: true })
     } catch (error) {
       console.error(error)
@@ -68,9 +72,12 @@ class Survey extends Component {
       <div>
         { survey && (
           <Fragment>
-            <h1>Survey Title: {survey.subject}</h1>
-            Questions: { questionsJsx || 'No Questions for Current Survey'}
+            <h1>Survey: {survey.subject}</h1>
+            <h2>Questions: </h2>
+            {questionsJsx || <p>No Questions for Current Survey</p> }
+            <br/>
             <Link to='/surveys'>Back to Surveys List</Link>
+            <Button href={`#create-response/${survey._id}`}>Take This Survey</Button>
             {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#update-survey/${survey._id}/edit`}>Edit Survey</Button> : ''}
             {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#create-question/${survey._id}`}>Add Question</Button> : ''}
             {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button onClick={this.delete}>Delete This Survey</Button> : ''}

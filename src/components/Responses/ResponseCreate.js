@@ -12,7 +12,8 @@ class CreateResponse extends Component {
   state = {
     response: {
       answer: '',
-      question: ''
+      survey: this.props.match.params.id,
+      question: this.props.match.params.id.question[0]
     }
   }
 

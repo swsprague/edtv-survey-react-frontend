@@ -10,13 +10,26 @@ class UpdateQuestion extends Component {
   state = {
     question: {
       subject: '',
-      answers: []
+      answers: [],
+      answer1: '',
+      answer2: '',
+      answer3: '',
+      answer4: ''
     }
   }
 
   componentDidMount () {
     axios(`${apiUrl}/questions/${this.props.match.params.id}`)
-      .then(response => this.setState({ question: response.data.question }))
+      .then((response) => {
+        const test = response.data.question
+        test.answer1 = test.answers[0]
+        test.answer2 = test.answers[1]
+        test.answer3 = test.answers[2]
+        test.answer4 = test.answers[3]
+        this.setState({ question: test })
+        console.log(this.state.question)
+        console.log('response data at q-update is ', response.data.question)
+      })
       .catch(() => this.props.alert({
         heading: 'Error',
         message: 'Somethin Dun Went RONG',
@@ -32,6 +45,13 @@ class UpdateQuestion extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
+    const test = this.state.question
+    test.answers = []
+    test.answers.push(test.answer1)
+    test.answers.push(test.answer2)
+    test.answers.push(test.answer3)
+    test.answers.push(test.answer4)
+    this.setState({ question: test })
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
     }

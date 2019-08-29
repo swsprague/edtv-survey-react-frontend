@@ -14,13 +14,19 @@ class CreateQuestion extends Component {
     question: {
       subject: '',
       answers: [],
+      answer1: '',
+      answer2: '',
+      answer3: '',
+      answer4: '',
       survey: this.props.match.params.id
     }
   }
 
   handleChange = event => {
+    console.log(event.target.value)
     this.setState({
       question: { ...this.state.question, [event.target.name]: event.target.value }
+
     })
     // you could also do it this way:
 
@@ -40,10 +46,13 @@ class CreateQuestion extends Component {
     console.log('question says ', this.state.question)
     console.log('survey is ', this.props.match.params.id)
     event.preventDefault()
-    this.state.question.answers.push(this.state.question.answer1)
-    this.state.question.answers.push(this.state.question.answer2)
-    this.state.question.answers.push(this.state.question.answer3)
-    this.state.question.answers.push(this.state.question.answer4)
+    const test = this.state.question
+    test.answers = []
+    test.answers.push(test.answer1)
+    test.answers.push(test.answer2)
+    test.answers.push(test.answer3)
+    test.answers.push(test.answer4)
+    this.setState({ question: test })
     console.log('This is array', this.state.question.answers)
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`

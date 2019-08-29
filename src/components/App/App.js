@@ -21,6 +21,7 @@ import Response from '../Responses/Response'
 import Questions from '../Questions/Questions'
 import QuestionCreate from '../Questions/QuestionCreate'
 import Question from '../Questions/Question'
+import QuestionUpdate from '../Questions/QuestionUpdate'
 // import UpdateSurvey from '../Surveys/UpdateSurvey'
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
           <Route exact path='/surveys' component={Surveys} />
           <Route exact path='/questions' component={Questions} />
           <Route exact path='/responses' component={Responses} />
+          <Route exact path='/' component={Home} />
           <Route exact path='/surveys/:id' user={user} render={() => (
             <Survey user={user} />
           )}
@@ -71,7 +73,6 @@ class App extends Component {
             <Response user={user} />
           )}
           />
-          <Route exact path="/" component={Home}/>
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
@@ -90,14 +91,14 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/create-question/:id' render={() => (
             <QuestionCreate user={user} alert={this.alert} />
           )} />
-          <AuthenticatedRoute user={user} path='/create-response' render={() => (
+          <AuthenticatedRoute user={user} path='/create-response/:id' render={() => (
             <ResponseCreate user={user} alert={this.alert} />
           )} />
           <AuthenticatedRoute user={user} path='/update-survey/:id/edit' render={() => (
             <SurveyUpdate user={user} alert={this.alert} />
           )} />
           <AuthenticatedRoute user={user} path='/update-question/:id/edit' render={() => (
-            <SurveyUpdate user={user} alert={this.alert} />
+            <QuestionUpdate user={user} alert={this.alert} />
           )} />
         </main>
       </Fragment>
