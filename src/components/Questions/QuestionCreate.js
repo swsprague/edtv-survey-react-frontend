@@ -64,7 +64,7 @@ class CreateQuestion extends Component {
       .then(response => {
         this.props.alert({
           heading: 'Success!!!',
-          message: 'You Successfully Created a Question!',
+          message: 'Wow look at that you created a question! You\'re one step closer to losing your soul to eternal darkness! YOLO!',
           variant: 'success'
         })
         // console.log('response is ', response)

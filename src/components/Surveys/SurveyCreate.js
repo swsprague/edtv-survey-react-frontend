@@ -47,7 +47,7 @@ class CreateSurvey extends Component {
       .then(response => {
         this.props.alert({
           heading: 'Success!!!',
-          message: 'You Successfully Created a Survey!',
+          message: 'You\'ve Created a Survey! Please add a question or two in honor of the Dark Lord! :)',
           variant: 'success'
         })
         this.props.history.push(`/surveys/${response.data.survey._id}`)

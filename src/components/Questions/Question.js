@@ -100,7 +100,7 @@ class Question extends Component {
         // console.log('this props is ', this.props)
         this.props.alert({
           heading: 'Success!!!',
-          message: 'You Successfully Answered a Question!',
+          message: 'My Nightmare LLC thanks you for your response! If you type your Social Security Number into your keyboard now you will become a wizard!',
           variant: 'success'
         })
         this.props.history.push(`/responses/${response.data.response._id}`)
