@@ -3,6 +3,7 @@ import axios from 'axios'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Spinner from 'react-bootstrap/Spinner'
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 import apiUrl from '../../apiConfig'
 
@@ -44,6 +45,7 @@ class Surveys extends Component {
     return (
       <Fragment>
         <h1>Loogit all deez kewl survayz!</h1>
+        <Button href={'#create-survey'}>Create a Survey!</Button>
         <ListGroup>
           <ul>
             {this.state.surveys.length ? surveysJsx : <ListGroup.Item>No Surveys Found :(</ListGroup.Item>}

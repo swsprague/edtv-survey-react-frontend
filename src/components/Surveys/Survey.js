@@ -78,7 +78,7 @@ class Survey extends Component {
         { survey && (
           <Fragment>
             <h1>Survey: {survey.subject}</h1>
-            <h2>Questions: </h2>
+            <h2>¿Questions? </h2>
             {questionsJsx || <p>No Questions for Current Survey</p> }
             <br/>
             <Link to='/surveys'>Back to Surveys List</Link>
