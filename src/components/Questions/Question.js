@@ -108,7 +108,7 @@ class Question extends Component {
 
   render () {
     const { question, deleted } = this.state
-    let answersJsx
+    // let answersJsx
     // console.log('question at render is ', this.state.question)
     // console.log('survey at render is ', survey)
     const currentSurvey = '/surveys'
@@ -122,12 +122,6 @@ class Question extends Component {
           }
         }
       }/>
-    } else if (question) {
-      answersJsx = question.answers.map(answer => (
-        <li key={answer}>
-          {answer}
-        </li>
-      ))
     }
     return (
       <div>
@@ -140,16 +134,25 @@ class Question extends Component {
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
             />
-            <p>Answers: { answersJsx || 'No Responses for Current Question'}</p>
             <Link to={currentSurvey}>Back to Surveys</Link>
             {(this.props.user && question) && this.props.user._id === question.owner ? <Button href={`#update-question/${question._id}/edit`}>Edit Question</Button> : ''}
-            {(this.props.user && question) && this.props.user._id === question.owner ? <Button onClick={this.delete}>Delete This Question</Button> : ''}
+            {(this.props.user && question) && this.props.user._id === question.owner ? <Button variant="danger" onClick={this.delete}>Delete This Question</Button> : ''}
           </Fragment>
         )}
       </div>
     )
   }
 }
+
+// <p>Answers: { answersJsx || 'No Responses for Current Question'}</p>
+
+// else if (question) {
+//   answersJsx = question.answers.map(answer => (
+//     <li key={answer}>
+//       {answer}
+//     </li>
+//   ))
+// }
 
 // <Button href={`#create-response/${question._id}`}>Answer This Survey Question</Button>
 

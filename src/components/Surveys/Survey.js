@@ -84,7 +84,7 @@ class Survey extends Component {
             <Link to='/surveys'>Back to Surveys List</Link>
             {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#update-survey/${survey._id}/edit`}>Edit Survey</Button> : ''}
             {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button href={`#create-question/${survey._id}`}>Add Question</Button> : ''}
-            {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button onClick={this.delete}>Delete This Survey</Button> : ''}
+            {(this.props.user && survey) && this.props.user._id === survey.owner ? <Button variant="danger" onClick={this.delete}>Delete This Survey</Button> : ''}
           </Fragment>
         )}
       </div>
