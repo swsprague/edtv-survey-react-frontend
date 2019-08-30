@@ -24,8 +24,8 @@ class CreateResponse extends Component {
         this.setState({ userResponse: {
           question: userRep.question
         } })
-        console.log('question at response is ', this.state.userResponse.question)
-        console.log('response data at createResource is ', response.data.question)
+        // console.log('question at response is ', this.state.userResponse.question)
+        // console.log('response data at createResource is ', response.data.question)
       })
       .catch(() => this.props.alert({
         heading: 'Error',
@@ -53,7 +53,7 @@ class CreateResponse extends Component {
   }
 
   handleSubmit = event => {
-    console.log('userResponse says ', this.state.userResponse)
+    // console.log('userResponse says ', this.state.userResponse)
     event.preventDefault()
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
@@ -69,7 +69,11 @@ class CreateResponse extends Component {
         })
         this.props.history.push(`/responses/${response.data.response._id}`)
       })
-      .catch(console.error)
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Somethin Dun Went RONG',
+        variant: 'danger'
+      }))
   }
 
   render () {

@@ -23,7 +23,7 @@ class Survey extends Component {
   }
 
   async componentDidMount () {
-    console.log('user is ', this.props.user)
+    // console.log('user is ', this.props.user)
     try {
       const response = await axios(`${apiUrl}/surveys/${this.props.match.params.id}`)
 
@@ -31,7 +31,11 @@ class Survey extends Component {
         survey: response.data.survey
       })
     } catch (error) {
-      console.error(error)
+      this.props.alert({
+        heading: 'Error',
+        message: 'Failed to Load Survey',
+        variant: 'danger'
+      })
     }
   }
 
@@ -39,7 +43,7 @@ class Survey extends Component {
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
     }
-    console.log('match params at delete is ', this.props.match.params.id)
+    // console.log('match params at delete is ', this.props.match.params.id)
     try {
       await axios.delete(`${apiUrl}/surveys/${this.props.match.params.id}`, { headers })
       this.setState({ deleted: true })
@@ -49,7 +53,11 @@ class Survey extends Component {
         variant: 'success'
       })
     } catch (error) {
-      console.error(error)
+      this.props.alert({
+        heading: 'Error',
+        message: 'Unable to Delete Survey',
+        variant: 'danger'
+      })
     }
   }
 

@@ -36,7 +36,7 @@ class CreateSurvey extends Component {
   }
 
   handleSubmit = event => {
-    console.log('survey says ', this.state.survey)
+    // console.log('survey says ', this.state.survey)
     event.preventDefault()
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
@@ -52,7 +52,11 @@ class CreateSurvey extends Component {
         })
         this.props.history.push(`/surveys/${response.data.survey._id}`)
       })
-      .catch(console.error)
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Unable to Create Survey',
+        variant: 'danger'
+      }))
   }
 
   render () {

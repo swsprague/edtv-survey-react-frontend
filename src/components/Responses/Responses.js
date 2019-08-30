@@ -23,7 +23,11 @@ class Surveys extends Component {
       // do something with the response
       this.setState({ surveys: response.data.surveys, isLoading: false })
     } catch (error) {
-      console.error(error)
+      this.props.alert({
+        heading: 'Error',
+        message: 'Failed to Load Surveys',
+        variant: 'danger'
+      })
     }
   }
 

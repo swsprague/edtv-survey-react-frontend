@@ -58,7 +58,11 @@ class UpdateSurvey extends Component {
         })
         this.props.history.push(`/surveys/${this.state.survey._id}`)
       })
-      .catch(console.error)
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Unable to Update Survey',
+        variant: 'danger'
+      }))
   }
 
   render () {

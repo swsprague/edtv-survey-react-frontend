@@ -27,8 +27,7 @@ class UpdateQuestion extends Component {
         test.answer3 = test.answers[2]
         test.answer4 = test.answers[3]
         this.setState({ question: test })
-        console.log(this.state.question)
-        console.log('response data at q-update is ', response.data.question)
+        // console.log('response data at q-update is ', response.data.question)
       })
       .catch(() => this.props.alert({
         heading: 'Error',
@@ -66,7 +65,11 @@ class UpdateQuestion extends Component {
         })
         this.props.history.push(`/questions/${this.state.question._id}`)
       })
-      .catch(console.error)
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Failed to Update Question',
+        variant: 'danger'
+      }))
   }
 
   render () {

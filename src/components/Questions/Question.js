@@ -26,8 +26,8 @@ class Question extends Component {
   }
 
   async componentDidMount () {
-    console.log('user is ', this.props.user)
-    console.log('match params is ', this.props.match.params.id.survey_id)
+    // console.log('user is ', this.props.user)
+    // console.log('match params is ', this.props.match.params.id.survey_id)
     try {
       const response = await axios(`${apiUrl}/questions/${this.props.match.params.id}`)
 
@@ -35,10 +35,14 @@ class Question extends Component {
         question: response.data.question,
         survey: response.data.question.survey
       })
-      console.log('survey at mount is ', this.state.survey)
-      console.log('question at mount is ', this.state.question)
+      // console.log('survey at mount is ', this.state.survey)
+      // console.log('question at mount is ', this.state.question)
     } catch (error) {
-      console.error(error)
+      this.props.alert({
+        heading: 'Error',
+        message: 'Failed to Load Question!',
+        variant: 'danger'
+      })
     }
   }
 
@@ -55,7 +59,11 @@ class Question extends Component {
         variant: 'success'
       })
     } catch (error) {
-      console.error(error)
+      this.props.alert({
+        heading: 'Error',
+        message: 'Failed to Delete Question!',
+        variant: 'danger'
+      })
     }
   }
 
@@ -68,13 +76,13 @@ class Question extends Component {
   handleSubmit = event => {
     event.preventDefault()
     const form = new FormData(event.target)
-    console.log('question xxx is ', this.state.question)
+    // console.log('question xxx is ', this.state.question)
     // form.append('question_id', this.state.question._id)
     let output = ''
     for (const pair of form.entries()) {
       output = pair[1]
     }
-    console.log('data is ', output)
+    // console.log('data is ', output)
     // const test = this.state.userResponse
     // this.setState({
     //   userResponse: { ...test, [event.target.name]: event.target.value }
@@ -87,9 +95,9 @@ class Question extends Component {
 
     axios.post(`${apiUrl}/responses`, data, { headers: headers })
       .then(response => {
-        console.log('response after response post is ', response)
+        // console.log('response after response post is ', response)
         this.setState({ answered: true })
-        console.log('this props is ', this.props)
+        // console.log('this props is ', this.props)
         this.props.alert({
           heading: 'Success!!!',
           message: 'You Successfully Answered a Question!',
@@ -97,7 +105,11 @@ class Question extends Component {
         })
         this.props.history.push(`/responses/${response.data.response._id}`)
       })
-      .catch(console.error)
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Failed to Log Response',
+        variant: 'danger'
+      }))
   }
 
   // const responseJsx = question.responses.map(response => (

@@ -23,7 +23,7 @@ class CreateQuestion extends Component {
   }
 
   handleChange = event => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     this.setState({
       question: { ...this.state.question, [event.target.name]: event.target.value }
 
@@ -43,8 +43,8 @@ class CreateQuestion extends Component {
   }
 
   handleSubmit = event => {
-    console.log('question says ', this.state.question)
-    console.log('survey is ', this.props.match.params.id)
+    // console.log('question says ', this.state.question)
+    // console.log('survey is ', this.props.match.params.id)
     event.preventDefault()
     const test = this.state.question
     test.answers = []
@@ -53,7 +53,7 @@ class CreateQuestion extends Component {
     test.answers.push(test.answer3)
     test.answers.push(test.answer4)
     this.setState({ question: test })
-    console.log('This is array', this.state.question.answers)
+    // console.log('This is array', this.state.question.answers)
     const headers = {
       'Authorization': `Token token=${this.props.user.token}`
     }
@@ -67,7 +67,7 @@ class CreateQuestion extends Component {
           message: 'You Successfully Created a Question!',
           variant: 'success'
         })
-        console.log('response is ', response)
+        // console.log('response is ', response)
         this.props.history.push(`/surveys/${response.data.question.survey}`)
         // questionsArr.push(response.data.question._id)
         // console.log('questions array is ', questionsArr)
@@ -88,7 +88,11 @@ class CreateQuestion extends Component {
       //     }
       //   }
       // }))
-      .catch(console.error)
+      .catch(() => this.props.alert({
+        heading: 'Error',
+        message: 'Unable to Create Question',
+        variant: 'danger'
+      }))
   }
 
   render () {

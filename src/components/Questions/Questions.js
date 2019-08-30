@@ -23,7 +23,11 @@ class Questions extends Component {
       // do something with the response
       this.setState({ questions: response.data.questions, isLoading: false })
     } catch (error) {
-      console.error(error)
+      this.props.alert({
+        heading: 'Error',
+        message: 'Questions failed to load',
+        variant: 'danger'
+      })
     }
   }
 

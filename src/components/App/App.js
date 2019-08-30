@@ -57,10 +57,19 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route exact path='/surveys' component={Surveys} />
-          <Route exact path='/questions' component={Questions} />
-          <Route exact path='/responses' component={Responses} />
           <Route exact path='/' component={Home} />
+          <Route exact path='/surveys' render={() => (
+            <Surveys user={user} alert={this.alert} />
+          )}
+          />
+          <Route exact path='/questions' render={() => (
+            <Questions user={user} alert={this.alert} />
+          )}
+          />
+          <Route exact path='/responses' render={() => (
+            <Responses user={user} alert={this.alert} />
+          )}
+          />
           <Route exact path='/surveys/:id' user={user} render={() => (
             <Survey user={user} alert={this.alert} />
           )}

@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 // import Question from '../Questions/Question'
 
 const ResponseForm = ({ handleSubmit, userResponse, question }) => {
-  console.log('this question is ', question)
+  // console.log('this question is ', question)
   return (
     <Form onSubmit={handleSubmit}>
       <fieldset>

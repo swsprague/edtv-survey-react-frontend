@@ -21,15 +21,20 @@ class Response extends Component {
   }
 
   async componentDidMount () {
-    console.log('user is ', this.props.user)
+    // console.log('user is ', this.props.user)
     try {
       const response = await axios(`${apiUrl}/responses/${this.props.match.params.id}`)
-      console.log('response api get is ', response)
+      // console.log('response api get is ', response)
       this.setState({
         response: response.data.response
       })
-      console.log('response at blurg is ', this.state.response)
+      // console.log('response at blurg is ', this.state.response)
     } catch (error) {
+      this.props.alert({
+        heading: 'Error',
+        message: 'Failed to load Response',
+        variant: 'danger'
+      })
     }
   }
 
