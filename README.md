@@ -2,6 +2,11 @@
 
 #### _A survey creation application built with React and Express using MongoDB and Mongoose_
 
+### Setup Instructions:
+1. [Fork and clone](https://git.generalassemb.ly/ga-wdi-boston/meta/wiki/ForkAndClone) this repository
+2. Install dependencies using `npm install`
+3. Use `npm start` to connect to the server
+
 ### Deployed URLs:
 
 ##### Frontend:
@@ -100,17 +105,17 @@ I initially planned for this project to be a choose-your-own-adventure game, but
 ##### Homepage:
 ![App Screenshots Pt. 1][Homepage]
 
-[Homepage]: url
+[Homepage]: https://i.imgur.com/eMt3Lyf.png
 
 ##### Sign-In:
 ![App Screenshots Pt. 2][Sign-In]
 
-[Sign-In]: url
+[Sign-In]: https://i.imgur.com/bICz0bf.png
 
 ##### Question / Response Form:
 ![App Screenshots Pt. 3][Question-Response Form]
 
-[Question-Response Form]: url
+[Question-Response Form]: https://i.imgur.com/bYrb3vo.png
 
 ### Wireframe
 ![Wireframe Pg. 1][Wireframe Pt. 1]
